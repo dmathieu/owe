@@ -46,17 +46,17 @@ help: # Prints out help
 
 .PHONY: lint
 lint: $(GOLANGCI_LINT) ## Runs golangci-lint. Override defaults with LINT_RUN_OPTS
-	$(GOLANGCI_LINT) run $(LINT_RUN_OPTS) $(PKG_SPEC)
+	find . -name go.mod -execdir $(GOLANGCI_LINT) run $(LINT_RUN_OPTS) $(PKG_SPEC) \;
 
 .PHONY: test
 test: ## Runs go test. Override defaults with GOTEST_OPT
-	$(GOTEST) $(GOTEST_OPT) $(PKG_SPEC)
+	find . -name go.mod -execdir $(GOTEST) $(GOTEST_OPT) $(PKG_SPEC) \;
 
 .PHONY: bench
 bench: ## Runs go test with benchmarks
-	$(GOTEST) -bench=. -run Benchmark $(PKG_SPEC)
+	find . -name go.mod -execdir $(GOTEST) -bench=. -run Benchmark $(PKG_SPEC) \;
 
 .PHONY: coverage
 coverage: ## Generates a coverage profile and opens a web browser with the results
-	$(GOTEST) $(GOTEST_OPT) $(GOTEST_COVERAGE_OPT) $(PKG_SPEC)
+	find . -name go.mod -execdir $(GOTEST) $(GOTEST_OPT) $(GOTEST_COVERAGE_OPT) $(PKG_SPEC) \;
 	go tool cover -html=$(COVER_PROFILE)
