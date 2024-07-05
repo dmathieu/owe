@@ -40,16 +40,16 @@ wide event span.
 The `owehttp` package allows setting wide events for HTTP servers.
 
 ```golang
-	handler := func(http.ResponseWriter, *http.Request) {
-		// the HTTP handler sets my app's behavior
-		event := owe.SpanFromContext(r.Context())
-	}
+handler := func(http.ResponseWriter, *http.Request) {
+	// the HTTP handler sets my app's behavior
+	event := owe.SpanFromContext(r.Context())
+}
 
-	endpoint := otelhttp.NewHandler(owe.NewHandler(handler), "otelhttp")
-	server := &http.Server{
-		Handler: endpoint,
-	}
-	log.Fatal(server.ListenAndServe())
+endpoint := otelhttp.NewHandler(owe.NewHandler(handler), "otelhttp")
+server := &http.Server{
+	Handler: endpoint,
+}
+log.Fatal(server.ListenAndServe())
 ```
 
 ### gRPC
@@ -57,14 +57,14 @@ The `owehttp` package allows setting wide events for HTTP servers.
 The `owegrpc` package allows setting wide events for gRPC servers.
 
 ```golang
-	s := grpc.NewServer(
-			grpc.StatsHandler(otelgrpc.NewServerHandler()),
-			grpc.StatsHandler(owegrpc.NewHandler()),
-	)
+s := grpc.NewServer(
+		grpc.StatsHandler(otelgrpc.NewServerHandler()),
+		grpc.StatsHandler(owegrpc.NewHandler()),
+)
 
-	// Register your gRPC services
+// Register your gRPC services
 
-	if err := s.Serve(lis); err != nil {
-		log.Fatalf("failed to serve: %v", err)
-	}
+if err := s.Serve(lis); err != nil {
+	log.Fatalf("failed to serve: %v", err)
+}
 ```
