@@ -51,3 +51,20 @@ The `owehttp` package allows setting wide events for HTTP servers.
 	}
 	log.Fatal(server.ListenAndServe())
 ```
+
+### gRPC
+
+The `owegrpc` package allows setting wide events for gRPC servers.
+
+```golang
+	s := grpc.NewServer(
+			grpc.StatsHandler(otelgrpc.NewServerHandler()),
+			grpc.StatsHandler(owegrpc.NewHandler()),
+	)
+
+	// Register your gRPC services
+
+	if err := s.Serve(lis); err != nil {
+		log.Fatalf("failed to serve: %v", err)
+	}
+```
