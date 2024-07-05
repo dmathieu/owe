@@ -18,7 +18,7 @@ This package allows you to define a wide event for a context, which will not
 change unless you manually do so. You can then retrieve the proper main span
 all the time, even if child spans were created.
 
-```
+```golang
 span := owe.SpanFromContext(ctx)
 ```
 
@@ -28,7 +28,7 @@ In order to have a span to retrieve, one needs to be added to the context.
 
 You can do that manually with the `ContextWithSpan` method:
 
-```
+```golang
 ctx := owe.ContextWithSpan(ctx, span)
 ```
 
