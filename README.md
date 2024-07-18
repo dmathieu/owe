@@ -22,6 +22,8 @@ all the time, even if child spans were created.
 span := owe.SpanFromContext(ctx)
 ```
 
+![diagram](img/diagram.png)
+
 ## Usage
 
 In order to have a span to retrieve, one needs to be added to the context.
